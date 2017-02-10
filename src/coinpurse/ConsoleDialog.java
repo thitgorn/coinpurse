@@ -19,10 +19,11 @@ public class ConsoleDialog {
     
     /** 
      * Initialize a new Purse dialog.
+     * @param purse 
      * @param purse is the Purse to interact with.
      */
-    public ConsoleDialog( ) {
-
+    public ConsoleDialog(Purse purse ) {
+    	this.purse = purse;
     }
     
     /** run the user interface */

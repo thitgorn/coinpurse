@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 /**
  * A coin purse contains coins. You can insert coins, withdraw money, check the
  * balance, and check if the purse is full. When you withdraw money, the coin
@@ -93,7 +92,6 @@ public class Purse {
 			return false;
 		}
 		money.add(coin);
-		Collections.sort(money);
 		return true;
 	}
 
@@ -108,6 +106,7 @@ public class Purse {
 	 *         withdraw requested amount.
 	 */
 	public Coin[] withdraw(double amount) {
+		Collections.sort(money);
 		if (amount <= 0)// don't allow to withdraw amount < 0
 			return null;
 		/*
@@ -116,7 +115,7 @@ public class Purse {
 
 		// Did we get the full amount?
 		// This code assumes you decrease amount each time you remove a coin.
-		
+
 		List<Coin> coins = new ArrayList<Coin>();
 
 		for (int i = money.size() - 1; i >= 0; i--) {
@@ -129,7 +128,6 @@ public class Purse {
 
 		if (amount > 0) {
 			money.addAll(coins);
-			Collections.sort(money);
 			return null;
 		}
 
@@ -139,8 +137,7 @@ public class Purse {
 		// Use list.toArray( array[] ) to copy a list into an array.
 		// toArray returns a reference to the array itself.
 		Coin[] coin = new Coin[coins.size()];
-		coins.toArray(coin);
-		return coin;
+		return coins.toArray(coin);
 	}
 
 	/**
@@ -152,4 +149,3 @@ public class Purse {
 	}
 
 }
-
