@@ -109,16 +109,9 @@ public class Purse {
 		Collections.sort(money);
 		if (amount <= 0)// don't allow to withdraw amount < 0
 			return null;
-		/*
-		 * See lab sheet for outline of a solution, or devise your own solution.
-		 */
-
-		// Did we get the full amount?
-		// This code assumes you decrease amount each time you remove a coin.
-
 		List<Coin> coins = new ArrayList<Coin>();
 
-		for (int i = money.size() - 1; i >= 0; i--) {
+		for (int i = money.size() - 1; i >= 0; i--) { // Greedy algorithm
 			if (amount >= money.get(i).getValue()) {
 				coins.add(money.get(i));
 				amount -= money.get(i).getValue();
@@ -131,18 +124,16 @@ public class Purse {
 			return null;
 		}
 
-		// Success.
-		// Remove the coins you want to withdraw from purse,
-		// and return them as an array.
+		Coin[] coin = new Coin[coins.size()];
 		// Use list.toArray( array[] ) to copy a list into an array.
 		// toArray returns a reference to the array itself.
-		Coin[] coin = new Coin[coins.size()];
 		return coins.toArray(coin);
 	}
 
 	/**
 	 * toString returns a string description of the purse contents. It can
-	 * return whatever is a useful description.
+	 * 
+	 * @return coin that is left in the purse..
 	 */
 	public String toString() {
 		return this.money.size() + " coins with value " + this.getBalance();

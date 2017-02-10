@@ -6,10 +6,11 @@ import java.util.Arrays;
  * A main class to create objects and connect objects together. The user
  * interface needs a reference to coin purse.
  * 
- * @author your name
+ * @author Thitiwat Thongbor
  */
 public class Main {
 
+	/** Default capacity value for purse dialog */
 	private static int CAPACITY = 10;
 
 	/**

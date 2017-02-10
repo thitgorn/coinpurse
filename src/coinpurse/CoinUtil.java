@@ -37,13 +37,6 @@ public class CoinUtil {
 	 * 
 	 * @param coins
 	 *            is a List of Coin objects we want to sort.
-	 *
-	 *            TODO: 1. Write a Comparator<Coin> (you can write the class at
-	 *            the end of this file. Declare it as "class CompareByCurrency"
-	 *            without the "public"). You can also write Comparator as an
-	 *            anonymous class, if you know how. The compare method should
-	 *            order coins by currency. 2. Create a comparator instance and
-	 *            use it to sort the coins.
 	 */
 	public static void sortByCurrency(List<Coin> coins) {
 		coins.sort(new CompareByCurrency());
@@ -57,22 +50,19 @@ public class CoinUtil {
 	 * 
 	 * 11.00 Baht 20.50 Ringgit
 	 * 
-	 * Hint: this is easy if you sort the coins by currency first. :-)
+	 * @param coins
+	 *            is a list of Coin objects we want to sum by currency.
 	 */
 	public static void sumByCurrency(List<Coin> coins) {
-		coins.sort(new CompareByCurrency());
-		System.out.print("RESULT: ");
-		printList(coins, " ");
-		//TODO fix the code.
-//		for (int i = 0; i < coins.size() - 1; i++) {
-//			double sum = 0.0;
-//			if (coins.get(i).getCurrency().equals(coins.get(i + 1).getCurrency())) {
-//				sum += coins.get(i).getValue();
-//			} else {
-//				System.out.println(sum + " " + coins.get(i).getCurrency());
-//				sum = 0.0;
-//			}
-//		}
+		coins.sort(new CompareByCurrency()); // sort it first.
+		double sum = 0.0;
+		for (int i = 0; i < coins.size() - 1; i++) {
+			sum += coins.get(i).getValue();
+			if (!coins.get(i).getCurrency().equals(coins.get(i + 1).getCurrency())) {
+				System.out.println(sum + " " + coins.get(i).getCurrency());
+				sum = 0.0;
+			}
+		}
 
 	}
 
@@ -142,6 +132,12 @@ public class CoinUtil {
 		System.out.println(); // end the line
 	}
 
+	/**
+	 * inner class implements Comparator. Compare currency by the letter.
+	 * 
+	 * @author Thitiwat Thongbor
+	 *
+	 */
 	static class CompareByCurrency implements Comparator<Coin> {
 
 		@Override
