@@ -14,7 +14,7 @@ import java.util.List;
 public class Purse {
 
 	/** Collection of objects in the purse. */
-	List<Coin> money;
+	private List<Coin> money;
 	/**
 	 * Capacity is maximum number of coins the purse can hold. Capacity is set
 	 * when the purse is created and cannot be changed.
