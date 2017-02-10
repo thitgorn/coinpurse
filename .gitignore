@@ -1,0 +1,6 @@
+#ignore the bin folder
+bin/
+*.class
+*.classpath
+*.project
+*.settings/
