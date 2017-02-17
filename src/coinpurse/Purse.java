@@ -14,7 +14,7 @@ import java.util.List;
 public class Purse {
 
 	/** Collection of objects in the purse. */
-	private List<Coin> money;
+	protected List<Valuable> money;
 	/**
 	 * Capacity is maximum number of coins the purse can hold. Capacity is set
 	 * when the purse is created and cannot be changed.
@@ -29,7 +29,7 @@ public class Purse {
 	 */
 	public Purse(int capacity) {
 		this.capacity = capacity;
-		money = new ArrayList<Coin>();
+		money = new ArrayList<Valuable>();
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class Purse {
 	 */
 	public double getBalance() {
 		double balance = 0.0;
-		for (Coin coin : money)
+		for (Valuable coin : money)
 			balance += coin.getValue();
 		return balance;
 	}
@@ -83,15 +83,30 @@ public class Purse {
 	 *            is a Coin object to insert into purse
 	 * @return true if coin inserted, false if can't insert
 	 */
-	public boolean insert(Coin coin) {
+	public boolean insert(Valuable v) {
 		// if the purse is already full then can't insert anything.
 		if (this.isFull()) {
 			return false;
 		}
-		if (coin.getValue() <= 0) {
+		if (v.getValue() <= 0) {
 			return false;
 		}
-		money.add(coin);
+		if (money.size() == 0) {
+			money.add(v);
+		} else if (v.getValue() <= money.get(0).getValue()) {
+			money.add(0, v);
+		} else {
+			for (int i = 0; i < money.size(); i++) {
+				if (v.getValue() < money.get(i).getValue()) {
+					money.add(i, v);
+					return true;
+				}
+				if (i + 1 == money.size()) {
+					money.add(v);
+					return true;
+				}
+			}
+		}
 		return true;
 	}
 
@@ -105,11 +120,11 @@ public class Purse {
 	 * @return array of Coin objects for money withdrawn, or null if cannot
 	 *         withdraw requested amount.
 	 */
-	public Coin[] withdraw(double amount) {
-		Collections.sort(money);
+	public Valuable[] withdraw(double amount) {
+
 		if (amount <= 0)// don't allow to withdraw amount < 0
 			return null;
-		List<Coin> coins = new ArrayList<Coin>();
+		List<Valuable> coins = new ArrayList<Valuable>();
 
 		for (int i = money.size() - 1; i >= 0; i--) { // Greedy algorithm
 			if (amount >= money.get(i).getValue()) {
@@ -120,11 +135,13 @@ public class Purse {
 		}
 
 		if (amount > 0) {
-			money.addAll(coins);
+			while (coins.size() > 0) {
+				this.insert(coins.get(0));
+			}
 			return null;
 		}
 
-		Coin[] coin = new Coin[coins.size()];
+		Valuable[] coin = new Valuable[coins.size()];
 		// Use list.toArray( array[] ) to copy a list into an array.
 		// toArray returns a reference to the array itself.
 		return coins.toArray(coin);

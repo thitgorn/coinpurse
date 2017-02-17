@@ -5,7 +5,7 @@ package coinpurse;
  * 
  * @author Thitiwat Thongbor
  */
-public class Coin implements Comparable<Coin> {
+public class Coin implements Comparable<Coin>, Valuable {
 	/** Default currency when there is no currency in constructor. */
 	public static final String DEFAULT_CURRENCY = "Baht";
 	/** Value of the coin. */
