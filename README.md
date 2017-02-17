@@ -1,5 +1,6 @@
 #Coinpurse
 //lab3
+
 this project contains the corrected, fixed code.
  - Coin class , class of coin that has value and currency.
  - Purse class , class of purse has a list on coin inside.
