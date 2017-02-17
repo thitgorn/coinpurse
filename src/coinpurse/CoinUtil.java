@@ -54,16 +54,18 @@ public class CoinUtil {
 	 *            is a list of Coin objects we want to sum by currency.
 	 */
 	public static void sumByCurrency(List<Coin> coins) {
-		coins.sort(new CompareByCurrency()); // sort it first.
-		double sum = 0.0;
-		for (int i = 0; i < coins.size() - 1; i++) {
-			sum += coins.get(i).getValue();
-			if (!coins.get(i).getCurrency().equals(coins.get(i + 1).getCurrency())) {
-				System.out.println(sum + " " + coins.get(i).getCurrency());
-				sum = 0.0;
+		Map<String, Double> map = new HashMap<String, Double>();
+		for (Coin coin : coins) {
+			if (!map.containsKey(coin.getCurrency())) {
+				map.put(coin.getCurrency(), coin.getValue());
+			} else {
+				double n = map.get(coin.getCurrency());
+				map.put(coin.getCurrency(), coin.getValue() + n);
 			}
 		}
-
+		for (String key : map.keySet()) {
+			System.out.println(key + " = " + map.get(key));
+		}
 	}
 
 	/**
