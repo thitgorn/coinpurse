@@ -55,7 +55,8 @@ public class ConsoleDialog {
 	}
 
 	/**
-	 * Ask the user how many coins to deposit into purse, then deposit them.
+	 * Ask the user how much to deposit into purse, then deposit them.
+	 * if the value adding is more than 20 , it will automaticly change into banknote.
 	 * Show result of success or failure.
 	 */
 	public void depositDialog() {
@@ -81,7 +82,7 @@ public class ConsoleDialog {
 
 	/**
 	 * Ask how much money (Baht) to withdraw and then do it. After withdraw,
-	 * show the values of the coins we withdrew.
+	 * show the values we withdrew with the list of money.
 	 */
 	public void withdrawDialog() {
 		System.out.print("How much to withdraw? ");
