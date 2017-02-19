@@ -2,7 +2,7 @@ package coinpurse;
 
 /**
  * 
- * a BankNote with a monetary value and currency
+ * A BankNote with a monetary value and currency
  * 
  * @author Thitiwat Thongbor
  *
@@ -11,7 +11,7 @@ public class BankNote implements Comparable<BankNote>, Valuable {
 
 	/** Default currency when there is no currency in constructor. */
 	public static final String DEFAULT_CURRENCY = "Baht";
-	/** Value of the coin. */
+	/** Value of the Banknote. */
 	private final double value;
 	/** The currency, of course. */
 	private final String currency;
@@ -21,10 +21,10 @@ public class BankNote implements Comparable<BankNote>, Valuable {
 	private final long serialNumber;
 
 	/**
-	 * A coin with given value using the default currency.
+	 * A banknote with given value using the default currency.
 	 * 
 	 * @param value
-	 *            of this coin.
+	 *            of this banknote.
 	 */
 	public BankNote(double value) {
 		this.value = value;
@@ -34,12 +34,12 @@ public class BankNote implements Comparable<BankNote>, Valuable {
 	}
 
 	/**
-	 * A coin with given value and currency.
+	 * A banknote with given value and currency.
 	 * 
 	 * @param value
-	 *            of this coin.
+	 *            of this banknote.
 	 * @param currency
-	 *            of this coin.
+	 *            of this banknote.
 	 */
 	public BankNote(double value, String currency) {
 		this.value = value;
@@ -49,10 +49,10 @@ public class BankNote implements Comparable<BankNote>, Valuable {
 	}
 
 	/**
-	 * return that Coin is the same value or not.
+	 * return that banknote is the same value or not.
 	 * 
 	 * @param obj
-	 *            is the coin that want to check.
+	 *            is the banknote that want to check.
 	 * @return true if same , false is not same.
 	 */
 	public boolean equals(Object obj) {
