@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * A purse contains coins , banknotes. You can insert coins, withdraw money, check the
- * balance, and check if the purse is full. When you withdraw money, the coin
- * purse decides which coins, banknotes to remove.
+ * A purse contains coins , banknotes. You can insert coins, withdraw money,
+ * check the balance, and check if the purse is full. When you withdraw money,
+ * the coin purse decides which coins, banknotes to remove.
  * 
  * @author Thitiwat Thongbor
  */
@@ -33,10 +33,10 @@ public class Purse {
 	}
 
 	/**
-	 * Count and return the number of coins in the purse. This is the number of
-	 * coins, not their value.
+	 * Count and return the number of coins and banknotes in the purse. This is
+	 * the number of coins and banknotes, not their value.
 	 * 
-	 * @return the number of coins in the purse
+	 * @return the number of objects in the purse
 	 */
 	public int count() {
 		return money.size();
@@ -55,7 +55,7 @@ public class Purse {
 	}
 
 	/**
-	 * Return the capacity of the coin purse.
+	 * Return the capacity of the purse.
 	 * 
 	 * @return the capacity
 	 */
@@ -76,12 +76,13 @@ public class Purse {
 	}
 
 	/**
-	 * Insert a coin into the purse. The coin is only inserted if the purse has
-	 * space for it and the coin has positive value. No worthless coins!
+	 * Insert a money into the purse. The money is only inserted if the purse
+	 * has space for it and the money has positive value. It will automatically
+	 * sort by value.
 	 * 
-	 * @param coin
-	 *            is a Coin object to insert into purse
-	 * @return true if coin inserted, false if can't insert
+	 * @param v
+	 *            is a valuable object to insert into purse
+	 * @return true if object inserted, false if can't insert
 	 */
 	public boolean insert(Valuable v) {
 		// if the purse is already full then can't insert anything.
@@ -111,13 +112,13 @@ public class Purse {
 	}
 
 	/**
-	 * Withdraw the requested amount of money. Return an array of Coins
+	 * Withdraw the requested amount of money. Return an array of money
 	 * withdrawn from purse, or return null if cannot withdraw the amount
 	 * requested.
 	 * 
 	 * @param amount
 	 *            is the amount to withdraw
-	 * @return array of Coin objects for money withdrawn, or null if cannot
+	 * @return array of objects for money withdrawn, or null if cannot
 	 *         withdraw requested amount.
 	 */
 	public Valuable[] withdraw(double amount) {
@@ -150,10 +151,10 @@ public class Purse {
 	/**
 	 * toString returns a string description of the purse contents. It can
 	 * 
-	 * @return coin that is left in the purse..
+	 * @return coin and banknote that is left in the purse..
 	 */
 	public String toString() {
-		return this.money.size() + " coins with value " + this.getBalance();
+		return this.money.size() + " coins , banknotes with value " + this.getBalance();
 	}
 
 }

@@ -56,7 +56,7 @@ public class ConsoleDialog {
 
 	/**
 	 * Ask the user how much to deposit into purse, then deposit them.
-	 * if the value adding is more than 20 , it will automaticly change into banknote.
+	 * if the value adding is more than 20 , it will automatically change into banknote.
 	 * Show result of success or failure.
 	 */
 	public void depositDialog() {

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * A main class to create objects and connect objects together. The user
- * interface needs a reference to coin purse.
+ * interface needs a reference to purse.
  * 
  * @author Thitiwat Thongbor
  */
@@ -21,7 +21,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 
-		// 1. create a Purse
+		// 1. create a Purse with capacity
 		Purse purse = new Purse(CAPACITY);
 		// 2. create a ConsoleDialog with a reference to the Purse object
 		ConsoleDialog consoleDialog = new ConsoleDialog(purse);
