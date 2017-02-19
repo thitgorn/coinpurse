@@ -12,7 +12,7 @@ public class Coin implements Comparable<Coin>, Valuable {
 	private final double value;
 	/** The currency, of course. */
 	private final String currency;
-
+ 
 	/**
 	 * A coin with given value using the default currency.
 	 * 
