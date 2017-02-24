@@ -20,7 +20,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		//crete money factory
-		MoneyFactory.setMoneyFactory("Thailand");
+		MoneyFactory.getInstance();
 		// 1. create a Purse with capacity
 		Purse purse = new Purse(CAPACITY);
 		// 2. create a ConsoleDialog with a reference to the Purse object

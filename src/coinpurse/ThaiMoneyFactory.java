@@ -10,9 +10,6 @@ public class ThaiMoneyFactory extends MoneyFactory {
 	@Override
 	public Valuable createMoney(double value) throws IllegalArgumentException {
 		if (isCoin(value)) {
-			if (value < 1) {
-				return new Coin(value);
-			}
 			return new Coin(value);
 		} else if (isBankNote(value)) {
 			return new BankNote(value);
