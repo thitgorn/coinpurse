@@ -25,8 +25,7 @@ public class CoinUtil {
 				filterCoin.add(coin);
 			}
 		}
-		return filterCoin; // return a list of coin references copied from
-							// coinlist
+		return filterCoin;
 	}
 
 	/**
@@ -53,7 +52,7 @@ public class CoinUtil {
 	 */
 	public static void sumByCurrency(List<Coin> coins) {
 		Map<String, Double> map = new HashMap<String, Double>();
-		for (Coin coin : coins) {
+		for (AbstractValuable coin : coins) {
 			if (!map.containsKey(coin.getCurrency())) {
 				map.put(coin.getCurrency(), coin.getValue());
 			} else {
