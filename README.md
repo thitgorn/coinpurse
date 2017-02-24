@@ -4,7 +4,7 @@
  - change country = class name (ThaiMoneyFactory , MalayMoneyFactory) : case sensitive.
 
 
-//lab3
+###lab3
 
 this project contains the corrected, fixed code.
  - Coin class , class of coin that has value and currency.
@@ -14,12 +14,12 @@ this project contains the corrected, fixed code.
  - CoinUtil class , class for helping the application more useful.
  - PurseTest class , Junit test, test the program works correctly .
 
-//lab4
+###lab4
  - modify coinUtil class.
  - added BankNote class.
  - changed all of the object to be valuable.
  
-//lab5
+###lab5
  - removed duplicate code by using abstract class.
  - created money factory that responsible for creating money.
  - made money factory using singleton pathen.
