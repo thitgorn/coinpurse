@@ -1,5 +1,12 @@
 package coinpurse;
 
+/**
+ * Abstract class for avoiding duplicated code in valuable.
+ * 
+ * @author Thitiwat Thongbor
+ * @version 24.02.2017
+ */
+
 public abstract class AbstractValuable implements Valuable {
 	/** Default currency when there is no currency in constructor. */
 	protected static final String DEFAULT_CURRENCY = "Baht";
@@ -8,6 +15,14 @@ public abstract class AbstractValuable implements Valuable {
 	/** The currency, of course. */
 	protected final String currency;
 
+	/**
+	 * Construct the valuable object contains value and currency.
+	 * 
+	 * @param value
+	 *            the value of object.
+	 * @param currency
+	 *            the currency of object.
+	 */
 	public AbstractValuable(double value, String currency) {
 		this.value = value;
 		this.currency = currency;
@@ -50,7 +65,7 @@ public abstract class AbstractValuable implements Valuable {
 	}
 
 	/**
-	 * compare the value.
+	 * Override compareTo from implementing comparable. compare the value.
 	 * 
 	 * @param o
 	 *            is the valuable object.

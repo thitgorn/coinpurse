@@ -4,6 +4,7 @@ package coinpurse;
  * a coin with a monetary value and currency
  * 
  * @author Thitiwat Thongbor
+ * @version 24.02.2017
  */
 public class Coin extends AbstractValuable {
 

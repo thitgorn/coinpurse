@@ -1,5 +1,12 @@
 package coinpurse;
 
+/**
+ * utility class for helping coin class.
+ * do nothing in lab 5.
+ * 
+ * @author Thitiwat Thongbor
+ * @version 17.03.2017 
+ */
 import java.util.*;
 
 /**
@@ -120,8 +127,8 @@ public class CoinUtil {
 	}
 
 	/** Print the list on the console, on one line. */
-	public static void printList(List items, String separator) {
-		Iterator iter = items.iterator();
+	public static void printList(List<Coin> items, String separator) {
+		Iterator<Coin> iter = items.iterator();
 		while (iter.hasNext()) {
 			System.out.print(iter.next());
 			if (iter.hasNext())

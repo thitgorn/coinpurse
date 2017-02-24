@@ -1,5 +1,11 @@
 package coinpurse;
 
+/**
+ * User interface interacts with user from console.
+ * 
+ * @author Thitiwat Thongbor
+ * @version 24.02.2017
+ */
 import java.util.Scanner;
 
 /**
@@ -67,9 +73,9 @@ public class ConsoleDialog {
 		while (scanline.hasNextDouble()) {
 			double value = scanline.nextDouble();
 			Valuable money;
-			try{
-				money = factory.createMoney(value);				
-			} catch (IllegalArgumentException ex){
+			try {
+				money = factory.createMoney(value);
+			} catch (IllegalArgumentException ex) {
 				System.out.println("Sorry, " + value + " is not a valid amount.");
 				continue;
 			}

@@ -19,13 +19,13 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 
-		//crete money factory
+		// 1. crete money factory
 		MoneyFactory.getInstance();
-		// 1. create a Purse with capacity
+		// 2. create a Purse with capacity
 		Purse purse = new Purse(CAPACITY);
-		// 2. create a ConsoleDialog with a reference to the Purse object
+		// 3. create a ConsoleDialog with a reference to the Purse object
 		ConsoleDialog consoleDialog = new ConsoleDialog(purse);
-		// 3. run the ConsoleDialog
+		// 4. run the ConsoleDialog
 		consoleDialog.run();
 
 	}

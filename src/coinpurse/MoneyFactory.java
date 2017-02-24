@@ -1,5 +1,4 @@
 package coinpurse;
-
 import java.util.ResourceBundle;
 
 /**
@@ -9,8 +8,11 @@ import java.util.ResourceBundle;
  */
 public abstract class MoneyFactory {
 
+	//TODO
 	private static MoneyFactory factory;
+	//TODO
 	private static String currency;
+	//TODO
 	private static ResourceBundle bundle = ResourceBundle.getBundle("purse");
 
 	// No one can access this it's called "Singleton"
