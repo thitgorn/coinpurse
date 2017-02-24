@@ -9,7 +9,7 @@ package coinpurse;
 public class Main {
 
 	/** Default capacity value for purse dialog */
-	private static int CAPACITY = 10;
+	private static int CAPACITY = 100;
 
 	/**
 	 * Configure and start the application.
@@ -19,6 +19,8 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 
+		//crete money factory
+		MoneyFactory.setMoneyFactory("Thailand");
 		// 1. create a Purse with capacity
 		Purse purse = new Purse(CAPACITY);
 		// 2. create a ConsoleDialog with a reference to the Purse object

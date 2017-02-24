@@ -11,11 +11,12 @@ import java.util.Scanner;
  */
 public class ConsoleDialog {
 	// default currency for this dialog
-	public static final String CURRENCY = "Baht";
+	public static final String CURRENCY = MoneyFactory.getCurrency();
 	// use a single java.util.Scanner object for reading all input
 	private static Scanner console = new Scanner(System.in);
 	// the purse dialog
 	private Purse purse;
+	private MoneyFactory factory = MoneyFactory.getInstance();
 
 	/**
 	 * Initialize a new Purse dialog.
@@ -54,9 +55,9 @@ public class ConsoleDialog {
 	}
 
 	/**
-	 * Ask the user how much to deposit into purse, then deposit them.
-	 * if the value adding is more than 20 , it will automatically change into banknote.
-	 * Show result of success or failure.
+	 * Ask the user how much to deposit into purse, then deposit them. if the
+	 * value adding is more than 20 , it will automatically change into
+	 * banknote. Show result of success or failure.
 	 */
 	public void depositDialog() {
 		System.out.print("Enter value of coin(s) / banknote(s) to deposit on one line [eg: 5 10 20]: ");
@@ -66,10 +67,11 @@ public class ConsoleDialog {
 		while (scanline.hasNextDouble()) {
 			double value = scanline.nextDouble();
 			Valuable money;
-			if (value >= 20) {
-				money = new BankNote(value);
-			} else {
-				money = new Coin(value);
+			try{
+				money = factory.createMoney(value);				
+			} catch (IllegalArgumentException ex){
+				System.out.println("Sorry, " + value + " is not a valid amount.");
+				continue;
 			}
 			System.out.printf("Deposit %s... ", money.toString());
 			boolean ok = purse.insert(money);
