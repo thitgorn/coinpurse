@@ -1,7 +1,6 @@
 package coinpurse;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -118,8 +117,8 @@ public class Purse {
 	 * 
 	 * @param amount
 	 *            is the amount to withdraw
-	 * @return array of objects for money withdrawn, or null if cannot
-	 *         withdraw requested amount.
+	 * @return array of objects for money withdrawn, or null if cannot withdraw
+	 *         requested amount.
 	 */
 	public Valuable[] withdraw(double amount) {
 
