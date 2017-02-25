@@ -5,6 +5,7 @@ package coinpurse;
  * An interface for objects having a monetary value and currency.
  * 
  * @author Thitiwat Thongbor
+ * @version 25.02.2017
  *
  */
 public interface Valuable extends Comparable<Valuable> {

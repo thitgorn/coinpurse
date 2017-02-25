@@ -9,6 +9,7 @@ import java.util.List;
  * the coin purse decides which coins, banknotes to remove.
  * 
  * @author Thitiwat Thongbor
+ * @version 25.02.2017
  */
 public class Purse {
 
