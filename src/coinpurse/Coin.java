@@ -36,6 +36,6 @@ public class Coin extends AbstractValuable {
 	 * @return value with currency.
 	 */
 	public String toString() {
-		return this.value + " " + this.currency;
+		return this.value + "-" + this.currency + " Coin";
 	}
 }

@@ -10,6 +10,9 @@ package coinpurse;
  */
 public class ThaiMoneyFactory extends MoneyFactory {
 
+	/** The next Serial Number. */
+	private static long serialNumber = 1_000_000;
+
 	/**
 	 * decide creating coin or banknote.
 	 */
@@ -18,31 +21,56 @@ public class ThaiMoneyFactory extends MoneyFactory {
 		if (isCoin(value)) {
 			return new Coin(value);
 		} else if (isBankNote(value)) {
-			return new BankNote(value);
+			long serialNumber = assignSerialNumber();
+			return new BankNote(value, serialNumber);
 		}
 		throw new IllegalArgumentException("Incorrect Thai Baht value.");
 	}
 
 	/**
+	 * make banknotes are not the same serialnumber.
+	 * 
+	 * @return Its own serialnumber.
+	 */
+	private long assignSerialNumber() {
+		serialNumber += 1;
+		return serialNumber;
+	}
+
+	/**
 	 * check is the banknote?
-	 * @param value of the money
+	 * 
+	 * @param value
+	 *            of the money
 	 * @return true if yes , of course.
 	 */
 	private boolean isBankNote(double value) {
-		if (value == 20 || value == 50 || value == 100 || value == 500 || value == 1000) {
-			return true;
+		// value of banknote in Thailand.
+		double[] bank = { 20.0, 50.0, 100.0, 500.0, 1000.0 };
+
+		// check if value matches with banknote.
+		for (int i = 0; i < bank.length; i++) {
+			if (bank[i] == value)
+				return true;
 		}
 		return false;
 	}
 
 	/**
 	 * check is the coin?
-	 * @param value of the money
+	 * 
+	 * @param value
+	 *            of the money
 	 * @return true if yes
 	 */
 	private boolean isCoin(double value) {
-		if (value == 0.25 || value == 0.50 || value == 1 || value == 2 || value == 5 || value == 10) {
-			return true;
+		// value of coin in Thailand.
+		double[] coin = { 0.25, 0.50, 1.0, 2.0, 5.0, 10.0 };
+
+		// check if value matches with coin.
+		for (int i = 0; i < coin.length; i++) {
+			if (coin[i] == value)
+				return true;
 		}
 		return false;
 	}

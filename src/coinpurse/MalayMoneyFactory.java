@@ -5,10 +5,16 @@ package coinpurse;
  * money. coin or banknote.
  * 
  * @author Thitiwat Thongbor
- * @version 24.02.2017
+ * @version 25.02.2017
  *
  */
 public class MalayMoneyFactory extends MoneyFactory {
+
+	/** The next Serial Number. */
+	private static long serialNumber = 1_000_000;
+
+	// default currency of malay money.
+	private final String DEFAULT_CURRENCY = "Ringgit";
 
 	/**
 	 * creating money in currency Ringgit.
@@ -19,11 +25,22 @@ public class MalayMoneyFactory extends MoneyFactory {
 	@Override
 	public Valuable createMoney(double value) throws IllegalArgumentException {
 		if (isCoin(value)) {
-			return new Coin(value, " Sen");
+			return new Coin(value, DEFAULT_CURRENCY);
 		} else if (isBankNote(value)) {
-			return new BankNote(value, " Ringgit");
+			long serialNumber = assignSerialNumber();
+			return new BankNote(value, DEFAULT_CURRENCY, serialNumber);
 		}
 		throw new IllegalArgumentException("Incorrect Malay value");
+	}
+
+	/**
+	 * make banknotes are not the same serialnumber.
+	 * 
+	 * @return Its own serialnumber.
+	 */
+	private long assignSerialNumber() {
+		serialNumber += 1;
+		return serialNumber;
 	}
 
 	/**
@@ -34,8 +51,13 @@ public class MalayMoneyFactory extends MoneyFactory {
 	 * @return true if it's banknote.
 	 */
 	private boolean isBankNote(double value) {
-		if (value == 1 || value == 2 || value == 5 || value == 10 || value == 20 || value == 50 || value == 100) {
-			return true;
+		// All value of malay banknote.
+		double[] bank = { 1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0 };
+
+		// check if value matches banknote.
+		for (int i = 0; i < bank.length; i++) {
+			if (bank[i] == value)
+				return true;
 		}
 		return false;
 	}
@@ -48,8 +70,13 @@ public class MalayMoneyFactory extends MoneyFactory {
 	 * @return true if it's coin.
 	 */
 	private boolean isCoin(double value) {
-		if (value == 0.05 || value == 0.10 || value == 0.20 || value == 0.50) {
-			return true;
+		// All value of malay coin.
+		double[] coin = { 0.05, 0.10, 0.20, 0.50 };
+
+		// check if value matches coin.
+		for (int i = 0; i < coin.length; i++) {
+			if (coin[i] == value)
+				return true;
 		}
 		return false;
 	}

@@ -5,11 +5,10 @@ package coinpurse;
  * A BankNote with a monetary value and currency
  * 
  * @author Thitiwat Thongbor
+ * @version 25.02.2017
  *
  */
 public class BankNote extends AbstractValuable {
-	/** The next Serial Number. */
-	private static long nextSerialNumber = 1_000_000;
 	/** The serial Number. */
 	private final long serialNumber;
 
@@ -18,9 +17,11 @@ public class BankNote extends AbstractValuable {
 	 * 
 	 * @param value
 	 *            of this banknote.
+	 * @param serialNumber
+	 *            if the banknote.
 	 */
-	public BankNote(double value) {
-		this(value, DEFAULT_CURRENCY);
+	public BankNote(double value, long serialNumber) {
+		this(value, DEFAULT_CURRENCY, serialNumber);
 	}
 
 	/**
@@ -31,10 +32,9 @@ public class BankNote extends AbstractValuable {
 	 * @param currency
 	 *            of this banknote.
 	 */
-	public BankNote(double value, String currency) {
+	public BankNote(double value, String currency, long serialNumber) {
 		super(value, currency);
-		this.serialNumber = nextSerialNumber;
-		nextSerialNumber += 1;
+		this.serialNumber = serialNumber;
 	}
 
 	/**
@@ -52,6 +52,6 @@ public class BankNote extends AbstractValuable {
 	 * @return the value of banknote with serial number.
 	 */
 	public String toString() {
-		return this.value + " " + this.currency + " note [" + this.serialNumber + "]";
+		return this.value + "-" + this.currency + " note [" + this.serialNumber + "]";
 	}
 }

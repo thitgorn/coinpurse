@@ -92,10 +92,9 @@ public class Purse {
 		if (v.getValue() <= 0) {
 			return false;
 		}
-		if (money.size() == 0) {
+		// sorting when insert
+		if (money.isEmpty()) {
 			money.add(v);
-		} else if (v.getValue() <= money.get(0).getValue()) {
-			money.add(0, v);
 		} else {
 			for (int i = 0; i < money.size(); i++) {
 				if (v.getValue() < money.get(i).getValue()) {
