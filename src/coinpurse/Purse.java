@@ -2,6 +2,7 @@ package coinpurse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * A purse contains coins , banknotes. You can insert coins, withdraw money,
@@ -11,7 +12,7 @@ import java.util.List;
  * @author Thitiwat Thongbor
  * @version 25.02.2017
  */
-public class Purse {
+public class Purse extends Observable {
 
 	/** Collection of objects in the purse. */
 	protected List<Valuable> money;
@@ -85,29 +86,35 @@ public class Purse {
 	 * @return true if object inserted, false if can't insert
 	 */
 	public boolean insert(Valuable v) {
+		boolean returnType = false;
 		// if the purse is already full then can't insert anything.
 		if (this.isFull()) {
-			return false;
+			// return false
 		}
 		if (v.getValue() <= 0) {
-			return false;
+			// return false
 		}
 		// sorting when insert
 		if (money.isEmpty()) {
 			money.add(v);
+			returnType = true;
 		} else {
 			for (int i = 0; i < money.size(); i++) {
 				if (v.getValue() < money.get(i).getValue()) {
 					money.add(i, v);
-					return true;
+					returnType = true;
+					break;
 				}
 				if (i + 1 == money.size()) {
 					money.add(v);
-					return true;
+					returnType = true;
+					break;
 				}
 			}
 		}
-		return true;
+		setChanged();
+		notifyObservers();
+		return returnType;
 	}
 
 	/**
@@ -144,6 +151,8 @@ public class Purse {
 		Valuable[] coin = new Valuable[coins.size()];
 		// Use list.toArray( array[] ) to copy a list into an array.
 		// toArray returns a reference to the array itself.
+		setChanged();
+		notifyObservers();
 		return coins.toArray(coin);
 	}
 
