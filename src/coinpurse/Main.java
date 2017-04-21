@@ -11,7 +11,7 @@ import coinpurse.gui.PurseObserver;
 public class Main {
 
 	/** Default capacity value for purse dialog */
-	private static int CAPACITY = 100;
+	private static int CAPACITY = 3;
 
 	/**
 	 * Configure and start the application.

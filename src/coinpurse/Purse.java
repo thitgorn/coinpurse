@@ -89,10 +89,10 @@ public class Purse extends Observable {
 		boolean returnType = false;
 		// if the purse is already full then can't insert anything.
 		if (this.isFull()) {
-			// return false
+			 return false;
 		}
 		if (v.getValue() <= 0) {
-			// return false
+			 return false;
 		}
 		// sorting when insert
 		if (money.isEmpty()) {
@@ -128,7 +128,10 @@ public class Purse extends Observable {
 	 *         requested amount.
 	 */
 	public Valuable[] withdraw(double amount) {
-
+		if(amount>getBalance()){
+			return null;
+		}
+		
 		if (amount <= 0)// don't allow to withdraw amount < 0
 			return null;
 		List<Valuable> coins = new ArrayList<Valuable>();
