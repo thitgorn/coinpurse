@@ -4,6 +4,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import coinpurse.strategy.GreedyWithdraw;
+import coinpurse.strategy.RecursiveWithdraw;
 
 public class PurseTest {
 	private final int CAPACITY = 5;
@@ -13,7 +14,7 @@ public class PurseTest {
 	@Before
 	public void setUp() {
 		purse = new Purse(CAPACITY);
-		purse.setWithdrawStrategy(new GreedyWithdraw());
+		purse.setWithdrawStrategy(new RecursiveWithdraw());
 	}
 
 	@Test
