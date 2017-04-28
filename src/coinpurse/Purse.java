@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import coinpurse.strategy.WithdrawStrategy;
+
 /**
  * A purse contains coins , banknotes. You can insert coins, withdraw money,
  * check the balance, and check if the purse is full. When you withdraw money,
@@ -21,6 +23,7 @@ public class Purse extends Observable {
 	 * when the purse is created and cannot be changed.
 	 */
 	private final int capacity;
+	private WithdrawStrategy strategy;
 
 	/**
 	 * Create a purse with a specified capacity.
