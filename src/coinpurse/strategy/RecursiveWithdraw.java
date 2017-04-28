@@ -2,6 +2,7 @@ package coinpurse.strategy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import coinpurse.Valuable;
@@ -17,36 +18,35 @@ public class RecursiveWithdraw implements WithdrawStrategy {
 	public List<Valuable> withdraw(double amount, List<Valuable> money) {
 		List<Valuable> clone_money = new ArrayList<>();
 		clone_money.addAll(money);
-		System.out.println(Arrays.toString(clone_money.toArray()));
+		Collections.sort(clone_money, new Sort());
+		Collections.reverse(clone_money);
 		return recursive(amount, clone_money);
 	}
 
 	private List<Valuable> recursive(double amount, List<Valuable> money) {
-		List<Valuable> answer = null;
-//		Valuable first = money.get(0);
-//		if (amount - first.getValue() == 0) {
-//			answer = new ArrayList<>();
-//			answer.add(first);
-//			return answer;
-//		}
-//		if (amount - first.getValue() < 0) {
-//			return null;
-//		}
-//		if (money.size() == 1) {
-//			return null;
-//		}
-//		if (recursive(amount - first.getValue(), money.subList(1, money.size())) != null) {
-//			answer = new ArrayList<>();
-//			answer.addAll(recursive(amount - first.getValue(), money.subList(1, money.size())));
-//			answer.add(first);
-//			return answer;
-//		}
-//		else if (recursive(amount, money.subList(1, money.size())) != null) {
-//			answer = new ArrayList<>();
-//			answer.addAll(recursive(amount, money.subList(1, money.size())));
-//			answer.add(first);
-//			return answer;
-//		}
-		return answer;
+		if (amount == 0) {
+			return new ArrayList<>();
+		}
+		if (money.isEmpty()) {
+			return null;
+		}
+		Valuable first = money.get(0);
+		List<Valuable> result;
+		List<Valuable> view = money.subList(1, money.size());
+		if (amount - first.getValue() < 0) {
+			return null;
+		}
+
+		result = recursive(amount - first.getValue(), view);
+		if (result != null) {
+			result.add(first);
+			return result;
+		}
+		result = recursive(amount, view);
+		if (result != null) {
+			return result;
+		}
+
+		return null;
 	}
 }

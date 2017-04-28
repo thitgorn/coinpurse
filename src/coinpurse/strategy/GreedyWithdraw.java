@@ -2,7 +2,6 @@ package coinpurse.strategy;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import coinpurse.Valuable;
@@ -12,7 +11,7 @@ import coinpurse.Valuable;
  * @author Thitiwat Thongbor
  *
  */
-public class GreedyWithdraw implements WithdrawStrategy, Comparator<Valuable> {
+public class GreedyWithdraw implements WithdrawStrategy{
 
 	@Override
 	public List<Valuable> withdraw(double amount, List<Valuable> money) {
@@ -20,7 +19,7 @@ public class GreedyWithdraw implements WithdrawStrategy, Comparator<Valuable> {
 		List<Valuable> money_clone = new ArrayList<>();
 		money_clone.addAll(money);
 
-		Collections.sort(money_clone, this);
+		Collections.sort(money_clone, new Sort());
 		List<Valuable> coins = new ArrayList<>();
 		for (int i = 0; i < money_clone.size(); i++) { // Greedy algorithm
 			double value = money_clone.get(i).getValue();
@@ -33,11 +32,6 @@ public class GreedyWithdraw implements WithdrawStrategy, Comparator<Valuable> {
 			return null;
 		}
 		return coins;
-	}
-
-	@Override
-	public int compare(Valuable o1, Valuable o2) {
-		return (int) Math.signum((o2.getValue() - o1.getValue()));
 	}
 
 }

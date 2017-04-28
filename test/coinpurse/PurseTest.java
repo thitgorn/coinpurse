@@ -24,10 +24,6 @@ public class PurseTest {
 		assertArrayEquals(money, purse.withdraw(20));
 
 		Valuable[] money1 = { factory.createMoney(20), factory.createMoney(10) };
-		purse.insert(money1[0]);
-		purse.insert(money1[1]);
-		assertArrayEquals(money1, purse.withdraw(30));
-
 		purse.insert(money1[1]);
 		purse.insert(money1[0]);
 		assertArrayEquals(money1, purse.withdraw(30));
