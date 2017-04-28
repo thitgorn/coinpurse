@@ -89,7 +89,7 @@ public class Purse extends Observable {
 	 * @return true if object inserted, false if can't insert
 	 */
 	public boolean insert(Valuable v) {
-		boolean returnType = false;
+		boolean returnType = true;
 		// if the purse is already full then can't insert anything.
 		if (this.isFull()) {
 			 return false;
@@ -97,24 +97,7 @@ public class Purse extends Observable {
 		if (v.getValue() <= 0) {
 			 return false;
 		}
-		// sorting when insert
-		if (money.isEmpty()) {
-			money.add(v);
-			returnType = true;
-		} else {
-			for (int i = 0; i < money.size(); i++) {
-				if (v.getValue() < money.get(i).getValue()) {
-					money.add(i, v);
-					returnType = true;
-					break;
-				}
-				if (i + 1 == money.size()) {
-					money.add(v);
-					returnType = true;
-					break;
-				}
-			}
-		}
+		money.add(v);
 		setChanged();
 		notifyObservers();
 		return returnType;
@@ -137,23 +120,10 @@ public class Purse extends Observable {
 		
 		if (amount <= 0)// don't allow to withdraw amount < 0
 			return null;
-		List<Valuable> coins = new ArrayList<Valuable>();
-
-		for (int i = money.size() - 1; i >= 0; i--) { // Greedy algorithm
-			if (amount >= money.get(i).getValue()) {
-				coins.add(money.get(i));
-				amount -= money.get(i).getValue();
-				money.remove(i);
-			}
-		}
-
-		if (amount > 0) {
-			while (coins.size() > 0) {
-				this.insert(coins.get(0));
-			}
+		List<Valuable> coins = strategy.withdraw(amount, money);
+		if(coins==null){
 			return null;
 		}
-
 		Valuable[] coin = new Valuable[coins.size()];
 		// Use list.toArray( array[] ) to copy a list into an array.
 		// toArray returns a reference to the array itself.
@@ -169,6 +139,10 @@ public class Purse extends Observable {
 	 */
 	public String toString() {
 		return this.money.size() + " coins , banknotes with value " + this.getBalance();
+	}
+	
+	public void setWithdrawStrategy(WithdrawStrategy strategy){
+		this.strategy = strategy;
 	}
 
 }

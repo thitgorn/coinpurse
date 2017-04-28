@@ -1,6 +1,7 @@
 package coinpurse;
 
 import coinpurse.gui.PurseObserver;
+import coinpurse.strategy.GreedyWithdraw;
 
 /**
  * A main class to create objects and connect objects together. The user
@@ -25,7 +26,7 @@ public class Main {
 		MoneyFactory.getInstance();
 		// 2. create a Purse with capacity
 		Purse purse = new Purse(CAPACITY);
-		
+		purse.setWithdrawStrategy(new GreedyWithdraw());
 		purse.addObserver(new PurseObserver());
 		
 		// 3. create a ConsoleDialog with a reference to the Purse object
