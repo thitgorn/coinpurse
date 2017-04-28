@@ -14,9 +14,6 @@ public class GreedyWithdraw implements WithdrawStrategy, Comparator<Valuable> {
 	public List<Valuable> withdraw(double amount, List<Valuable> money) {
 
 		Collections.sort(money, this);
-
-		System.out.println(Arrays.toString(money.toArray()));
-
 		List<Valuable> coins = new ArrayList<>();
 		for (int i = 0; i < money.size(); i++) { // Greedy algorithm
 			if (amount >= money.get(i).getValue()) {
@@ -26,7 +23,6 @@ public class GreedyWithdraw implements WithdrawStrategy, Comparator<Valuable> {
 				i--;
 			}
 		}
-		System.out.println(Arrays.toString(money.toArray()));
 		if (amount > 0) {
 			while (coins.size() > 0) {
 				money.add(coins.get(0));
@@ -34,8 +30,6 @@ public class GreedyWithdraw implements WithdrawStrategy, Comparator<Valuable> {
 			}
 			return null;
 		}
-
-		System.out.println(Arrays.toString(money.toArray()));
 		return coins;
 	}
 
