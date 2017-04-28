@@ -92,10 +92,10 @@ public class Purse extends Observable {
 		boolean returnType = true;
 		// if the purse is already full then can't insert anything.
 		if (this.isFull()) {
-			 return false;
+			return false;
 		}
 		if (v.getValue() <= 0) {
-			 return false;
+			return false;
 		}
 		money.add(v);
 		setChanged();
@@ -114,15 +114,22 @@ public class Purse extends Observable {
 	 *         requested amount.
 	 */
 	public Valuable[] withdraw(double amount) {
-		if(amount>getBalance()){
+		if (amount > getBalance()) {
 			return null;
 		}
-		
+
 		if (amount <= 0)// don't allow to withdraw amount < 0
 			return null;
 		List<Valuable> coins = strategy.withdraw(amount, money);
-		if(coins==null){
+		if (coins == null) {
 			return null;
+		}
+
+		for (int i = 0; i < coins.size(); i++) {
+			if (money.contains(coins.get(i))) {
+				int index = money.indexOf(coins.get(i));
+				money.remove(index);
+			}
 		}
 		Valuable[] coin = new Valuable[coins.size()];
 		// Use list.toArray( array[] ) to copy a list into an array.
@@ -140,8 +147,8 @@ public class Purse extends Observable {
 	public String toString() {
 		return this.money.size() + " coins , banknotes with value " + this.getBalance();
 	}
-	
-	public void setWithdrawStrategy(WithdrawStrategy strategy){
+
+	public void setWithdrawStrategy(WithdrawStrategy strategy) {
 		this.strategy = strategy;
 	}
 
