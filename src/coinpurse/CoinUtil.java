@@ -8,148 +8,169 @@ package coinpurse;
  * @version 17.03.2017 
  */
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Some Coin utility methods for practice using Lists and Comparator.
  */
 public class CoinUtil {
 
-	/**
-	 * Method that examines all the coins in a List and returns only the coins
-	 * that have a currency that matches the parameter value.
-	 * 
-	 * @param coinlist
-	 *            is a List of Coin objects. This list is not modified.
-	 * @param currency
-	 *            is the currency we want. Must not be null.
-	 * @return a new List containing only the elements from coinlist that have
-	 *         the requested currency.
-	 */
-	public static List<Coin> filterByCurrency(final List<Coin> coinlist, String currency) {
-		List<Coin> filterCoin = new ArrayList<Coin>();
-		for (Coin coin : coinlist) {
-			if (coin.getCurrency().equals(currency)) {
-				filterCoin.add(coin);
-			}
-		}
-		return filterCoin;
+    /**
+     * Method that examines all the coins in a List and returns only the coins
+     * that have a currency that matches the parameter value.
+     * 
+     * @param coinlist
+     *            is a List of Coin objects. This list is not modified.
+     * @param currency
+     *            is the currency we want. Must not be null.
+     * @return a new List containing only the elements from coinlist that have
+     *         the requested currency.
+     */
+    public static <E extends Valuable> List<E> filterByCurrency(final List<E> coinlist, String currency) {
+	return coinlist.stream().filter((s) -> s.getCurrency().equals(currency)).collect(Collectors.toList());
+    }
+
+    /**
+     * Method to sort a list of coins by currency. On return, the list (coins)
+     * will be ordered by currency.
+     * 
+     * @param coins
+     *            is a List of Coin objects we want to sort.
+     */
+    public static void sortByCurrency(List<? extends Valuable> money) {
+	money.sort(new CompareByCurrency());
+    }
+
+    /**
+     * Sum coins by currency and print the sum for each currency. Print one line
+     * for the sum of each currency. For example: coins = { Coin(1,"Baht"),
+     * Coin(20,"Ringgit"), Coin(10,"Baht"), Coin(0.5,"Ringgit") } then
+     * sumByCurrency(coins) would print:
+     * 
+     * 11.00 Baht 20.50 Ringgit
+     * 
+     * @param coins
+     *            is a list of Coin objects we want to sum by currency.
+     */
+    public static void sumByCurrency(List<Coin> coins) {
+	Map<String, Double> map = new HashMap<String, Double>();
+	for (AbstractValuable coin : coins) {
+	    if (!map.containsKey(coin.getCurrency())) {
+		map.put(coin.getCurrency(), coin.getValue());
+	    } else {
+		double n = map.get(coin.getCurrency());
+		map.put(coin.getCurrency(), coin.getValue() + n);
+	    }
 	}
-
-	/**
-	 * Method to sort a list of coins by currency. On return, the list (coins)
-	 * will be ordered by currency.
-	 * 
-	 * @param coins
-	 *            is a List of Coin objects we want to sort.
-	 */
-	public static void sortByCurrency(List<Coin> coins) {
-		coins.sort(new CompareByCurrency());
+	for (String key : map.keySet()) {
+	    System.out.println(key + " = " + map.get(key));
 	}
+    }
 
-	/**
-	 * Sum coins by currency and print the sum for each currency. Print one line
-	 * for the sum of each currency. For example: coins = { Coin(1,"Baht"),
-	 * Coin(20,"Ringgit"), Coin(10,"Baht"), Coin(0.5,"Ringgit") } then
-	 * sumByCurrency(coins) would print:
-	 * 
-	 * 11.00 Baht 20.50 Ringgit
-	 * 
-	 * @param coins
-	 *            is a list of Coin objects we want to sum by currency.
-	 */
-	public static void sumByCurrency(List<Coin> coins) {
-		Map<String, Double> map = new HashMap<String, Double>();
-		for (AbstractValuable coin : coins) {
-			if (!map.containsKey(coin.getCurrency())) {
-				map.put(coin.getCurrency(), coin.getValue());
-			} else {
-				double n = map.get(coin.getCurrency());
-				map.put(coin.getCurrency(), coin.getValue() + n);
-			}
-		}
-		for (String key : map.keySet()) {
-			System.out.println(key + " = " + map.get(key));
-		}
-	}
+    /**
+     * This method contains some code to test the above methods.
+     * 
+     * @param args
+     *            not used
+     */
+    public static void main(String[] args) {
+	String currency = "Rupee";
+	System.out.println("Filter coins by currency of " + currency);
+	List<Coin> coins = makeInternationalCoins();
+	int size = coins.size();
+	System.out.print(" INPUT: ");
+	printList(coins, " ");
+	List<Coin> rupees = filterByCurrency(coins, currency);
+	System.out.print("RESULT: ");
+	printList(rupees, " ");
+	if (coins.size() != size)
+	    System.out.println("Error: you changed the original list.");
 
-	/**
-	 * This method contains some code to test the above methods.
-	 * 
-	 * @param args
-	 *            not used
-	 */
-	public static void main(String[] args) {
-		String currency = "Rupee";
-		System.out.println("Filter coins by currency of " + currency);
-		List<Coin> coins = makeInternationalCoins();
-		int size = coins.size();
-		System.out.print(" INPUT: ");
-		printList(coins, " ");
-		List<Coin> rupees = filterByCurrency(coins, currency);
-		System.out.print("RESULT: ");
-		printList(rupees, " ");
-		if (coins.size() != size)
-			System.out.println("Error: you changed the original list.");
+	System.out.println("\nSort coins by currency");
+	coins = makeInternationalCoins();
+	System.out.print(" INPUT: ");
+	printList(coins, " ");
+	sortByCurrency(coins);
+	System.out.print("RESULT: ");
+	printList(coins, " ");
 
-		System.out.println("\nSort coins by currency");
-		coins = makeInternationalCoins();
-		System.out.print(" INPUT: ");
-		printList(coins, " ");
-		sortByCurrency(coins);
-		System.out.print("RESULT: ");
-		printList(coins, " ");
+	System.out.println("\nSum coins by currency");
+	coins = makeInternationalCoins();
+	System.out.print("coins= ");
+	printList(coins, " ");
+	sumByCurrency(coins);
 
-		System.out.println("\nSum coins by currency");
-		coins = makeInternationalCoins();
-		System.out.print("coins= ");
-		printList(coins, " ");
-		sumByCurrency(coins);
+    }
 
-	}
+    /** Make a list of coins containing different currencies. */
+    public static List<Coin> makeInternationalCoins() {
+	List<Coin> money = new ArrayList<Coin>();
+	money.addAll(makeCoins("Baht", 0.25, 1.0, 2.0, 5.0, 10.0, 10.0));
+	money.addAll(makeCoins("Ringgit", 2.0, 50.0, 1.0, 5.0));
+	money.addAll(makeCoins("Rupee", 0.5, 0.5, 10.0, 1.0));
+	// randomize the elements
+	Collections.shuffle(money);
+	return money;
+    }
 
-	/** Make a list of coins containing different currencies. */
-	public static List<Coin> makeInternationalCoins() {
-		List<Coin> money = new ArrayList<Coin>();
-		money.addAll(makeCoins("Baht", 0.25, 1.0, 2.0, 5.0, 10.0, 10.0));
-		money.addAll(makeCoins("Ringgit", 2.0, 50.0, 1.0, 5.0));
-		money.addAll(makeCoins("Rupee", 0.5, 0.5, 10.0, 1.0));
-		// randomize the elements
-		Collections.shuffle(money);
-		return money;
-	}
+    /** Make a list of coins using given values. */
+    public static List<Coin> makeCoins(String currency, double... values) {
+	List<Coin> list = new ArrayList<Coin>();
+	for (double value : values)
+	    list.add(new Coin(value, currency));
+	return list;
+    }
 
-	/** Make a list of coins using given values. */
-	public static List<Coin> makeCoins(String currency, double... values) {
-		List<Coin> list = new ArrayList<Coin>();
-		for (double value : values)
-			list.add(new Coin(value, currency));
-		return list;
-	}
-
-	/** Print the list on the console, on one line. */
-	public static void printList(List<Coin> items, String separator) {
-		Iterator<Coin> iter = items.iterator();
-		while (iter.hasNext()) {
-			System.out.print(iter.next());
-			if (iter.hasNext())
-				System.out.print(separator);
-
-		}
-		System.out.println(); // end the line
-	}
-
-	/**
-	 * inner class implements Comparator. Compare currency by the letter.
-	 * 
-	 * @author Thitiwat Thongbor
-	 *
-	 */
-	static class CompareByCurrency implements Comparator<Coin> {
-
-		@Override
-		public int compare(Coin o1, Coin o2) {
-			return o1.getCurrency().compareTo(o2.getCurrency());
-		}
+    /** Print the list on the console, on one line. */
+    public static void printList(List<Coin> items, String separator) {
+	Iterator<Coin> iter = items.iterator();
+	while (iter.hasNext()) {
+	    System.out.print(iter.next());
+	    if (iter.hasNext())
+		System.out.print(separator);
 
 	}
+	System.out.println(); // end the line
+    }
+
+    /**
+     * Return the larger of a and b, according to the natural ordering (defined
+     * by compareTo)
+     * 
+     * @return the larger object
+     */
+    public static <E extends Comparable<? super E>> E max(E... a) {
+	return max(a.length - 1, a);
+    }
+
+    /**
+     * helper method compute the max
+     * 
+     * @param length
+     * @param a
+     * @return
+     */
+    private static <E extends Comparable<? super E>> E max(int length, E a[]) {
+	if (length <= 0) {
+	    return a[0];
+	}
+	if (a[length].compareTo(max(length - 1, a)) > 0) {
+	    return a[length];
+	}
+	return max(length - 1, a);
+    }
+
+    /**
+     * inner class implements Comparator. Compare currency by the letter.
+     * 
+     * @author Thitiwat Thongbor
+     *
+     */
+    static class CompareByCurrency implements Comparator<Valuable> {
+	@Override
+	public int compare(Valuable o1, Valuable o2) {
+	    return o1.getCurrency().compareTo(o2.getCurrency());
+	}
+
+    }
 }

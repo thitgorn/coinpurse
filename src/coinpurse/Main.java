@@ -28,7 +28,7 @@ public class Main {
 		// 2. create a Purse with capacity
 		Purse purse = new Purse(CAPACITY);
 		purse.setWithdrawStrategy(new RecursiveWithdraw());
-//		purse.addObserver(new PurseObserver());
+		purse.addObserver(new PurseObserver());
 		
 		// 3. create a ConsoleDialog with a reference to the Purse object
 		ConsoleDialog consoleDialog = new ConsoleDialog(purse);
